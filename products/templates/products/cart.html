@@ -1,0 +1,29 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+    <p>{{ user.username }}'s Cart</p>
+    <table class="table">
+        <tr>
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for element in cart_elements.all %}
+                    <tr>
+                        <td style="padding-top: 20px">{{ element.product.name }}</td>
+                        <td style="padding-top: 20px">{{ element.count }}</td>
+                        <td><a href="{% url 'products:cart_update' element.id %}" class="btn btn-success">Update</a></td>
+                        <td><a href="{% url 'products:cart_delete' element.id %}" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </tr>
+    </table>
+
+
+{% endblock %}

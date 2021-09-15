@@ -1,0 +1,31 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+
+{% block content %}
+    <h1>Books</h1>
+    <div class="row">
+        {% for book in books %}
+            <div class="col">
+            <div class="card" style="width: 18rem;">
+                {% static "" as baseUrl %}
+                <img width="40px" height="400px" src="{{ baseUrl }}products/images/{{ book.image }}" class="card-img-top" alt="img">
+                <div class="card-body">
+                    <div >
+                        <h5 class="card-title" style="float: left">{{ book.name }}</h5>
+                        <p class="card-text" align="right">{{ book.page_count }} pages</p>
+                    </div>
+                    <hr/>
+                    <h5 class="card-title">{{ book.author }}</h5>
+                    <p class="card-text">${{ book.cost }}</p>
+                    <form action="{% url 'products:cart_add' book.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary" value="Add to Cart">
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
